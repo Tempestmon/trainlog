@@ -1,0 +1,27 @@
+name: weekly-report
+
+on:
+  schedule:
+    # Sundays 15:00 UTC = 20:00 Asia/Yekaterinburg
+    - cron: "0 15 * * 0"
+  workflow_dispatch:
+    inputs:
+      date:
+        description: "Last day of the week (YYYY-MM-DD), empty = today"
+        required: false
+
+jobs:
+  report:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -e .
+      - name: Build report into the job summary
+        env:
+          INPUT_DATE: ${{ inputs.date }}
+        run: |
+          day="${INPUT_DATE:-$(TZ=Asia/Yekaterinburg date +%F)}"
+          trainlog report --date "$day" >> "$GITHUB_STEP_SUMMARY"
