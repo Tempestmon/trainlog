@@ -1,0 +1,11 @@
+{
+  "name": "trainlog-form",
+  "private": true,
+  "description": "Static logging form for trainlog",
+  "scripts": {
+    "test": "node --test form/tests/*.test.js"
+  },
+  "devDependencies": {
+    "jsdom": "^25.0.1"
+  }
+}
