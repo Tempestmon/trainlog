@@ -1,0 +1,95 @@
+{
+  "start_date": "2026-10-19",
+  "blocks": [
+    { "name": "Вход", "first_week": 1, "last_week": 4, "deload_week": null },
+    { "name": "Блок 2", "first_week": 5, "last_week": 10, "deload_week": 10 },
+    { "name": "Блок 3", "first_week": 11, "last_week": 16, "deload_week": 16 },
+    { "name": "Блок 4", "first_week": 17, "last_week": 22, "deload_week": 22 },
+    { "name": "Блок 5", "first_week": 23, "last_week": 28, "deload_week": 28 },
+    { "name": "Финиш", "first_week": 29, "last_week": 32, "deload_week": null }
+  ],
+  "nutrition": {
+    "warmup_days": 14,
+    "low_kg_per_week": 0.2,
+    "high_kg_per_week": 0.5,
+    "high_weeks": 3,
+    "waist_window_days": 21,
+    "waist_reduce_cm": 1.0,
+    "waist_warn_28d_cm": 1.0
+  },
+  "sessions": [
+    {
+      "id": "legs_a",
+      "name": "Ноги A — квадрицепс",
+      "variants": [3, 4],
+      "exercises": [
+        {
+          "id": "squat",
+          "name": "Присед со штангой",
+          "scheme": "top_backoff",
+          "reps": [5, 8],
+          "rir_min": 1,
+          "backoff": { "sets": 2, "reps": [8, 10], "pct": 0.9 },
+          "increment_kg": 5,
+          "track": true,
+          "note": "В раме со страховочными упорами"
+        },
+        { "id": "leg_press", "name": "Жим ногами", "sets": 3, "reps": [10, 15], "increment_kg": 10 },
+        { "id": "leg_extension", "name": "Разгибания ног", "sets": 2, "reps": [12, 15], "increment_kg": 5, "note": "Последний подход в отказ" },
+        { "id": "leg_curl", "name": "Сгибания ног (сидя или лёжа)", "sets": 3, "reps": [8, 12], "increment_kg": 5 },
+        { "id": "calf_raise_standing", "name": "Икры стоя", "sets": 3, "reps": [8, 12], "increment_kg": 5, "note": "Пауза 1–2 с в растяжении" },
+        { "id": "lat_pulldown", "name": "Тяга верхнего блока", "sets": 2, "reps": [10, 12], "increment_kg": 5, "variants": [3] }
+      ]
+    },
+    {
+      "id": "upper_a",
+      "name": "Верх A — жим и горизонтальная тяга",
+      "variants": [3, 4],
+      "exercises": [
+        {
+          "id": "bench_press",
+          "name": "Жим лёжа",
+          "scheme": "top_backoff",
+          "reps": [5, 8],
+          "rir_min": 1,
+          "backoff": { "sets": 2, "reps": [8, 10], "pct": 0.9 },
+          "increment_kg": 2.5,
+          "track": true,
+          "note": "Страховочные упоры или страхующий"
+        },
+        { "id": "row", "name": "Тяга штанги или гантели к поясу", "sets": 3, "reps": [8, 12], "increment_kg": 2.5 },
+        { "id": "incline_db_press", "name": "Жим гантелей на наклонной", "sets": 2, "reps": [8, 12], "increment_kg": 2, "note": "Вес одной гантели" },
+        { "id": "lat_pulldown", "name": "Тяга верхнего блока", "sets": 2, "reps": [10, 12], "increment_kg": 5 },
+        { "id": "lateral_raise", "name": "Махи гантелями в стороны", "sets": 3, "reps": [12, 20], "increment_kg": 1, "note": "Вес одной гантели" },
+        { "id": "db_curl", "name": "Сгибания рук с гантелями", "sets": 2, "reps": [8, 12], "increment_kg": 1, "note": "Вес одной гантели" },
+        { "id": "triceps_pushdown", "name": "Разгибания на блоке с канатом", "sets": 2, "reps": [10, 15], "increment_kg": 2.5 }
+      ]
+    },
+    {
+      "id": "legs_b",
+      "name": "Ноги B — задняя поверхность и ягодицы",
+      "variants": [3, 4],
+      "exercises": [
+        { "id": "romanian_deadlift", "name": "Румынская тяга со штангой", "sets": 3, "reps": [6, 10], "increment_kg": 5, "track": true },
+        { "id": "bulgarian_split_squat", "name": "Болгарские сплит-приседы", "sets": 3, "reps": [8, 10], "increment_kg": 2, "note": "Вес одной гантели, повторы на ногу" },
+        { "id": "hack_squat", "name": "Гакк-присед или жим ногами", "sets": 3, "reps": [8, 12], "increment_kg": 10 },
+        { "id": "leg_curl", "name": "Сгибания ног лёжа", "sets": 2, "reps": [10, 15], "increment_kg": 5, "note": "Последний подход в отказ" },
+        { "id": "calf_raise_seated", "name": "Икры сидя", "sets": 3, "reps": [12, 20], "increment_kg": 5 },
+        { "id": "db_shoulder_press", "name": "Жим гантелей сидя", "sets": 2, "reps": [8, 12], "increment_kg": 2, "variants": [3], "note": "Вес одной гантели" }
+      ]
+    },
+    {
+      "id": "upper_b",
+      "name": "Верх B — вертикаль и плечи",
+      "variants": [4],
+      "exercises": [
+        { "id": "pull_up", "name": "Подтягивания", "sets": 3, "reps": [6, 10], "increment_kg": 2.5, "note": "Вес — дополнительный, 0 = свой вес" },
+        { "id": "db_shoulder_press", "name": "Жим гантелей сидя или в тренажёре", "sets": 3, "reps": [8, 12], "increment_kg": 2, "note": "Вес одной гантели" },
+        { "id": "chest_supported_row", "name": "Тяга с упором грудью", "sets": 3, "reps": [8, 12], "increment_kg": 2.5 },
+        { "id": "dips", "name": "Брусья или жим в хаммере", "sets": 2, "reps": [8, 12], "increment_kg": 2.5, "note": "На брусьях вес — дополнительный" },
+        { "id": "rear_delt_fly", "name": "Обратные разведения", "sets": 2, "reps": [12, 20], "increment_kg": 1 },
+        { "id": "hammer_curl", "name": "Молотки", "sets": 2, "reps": [8, 12], "increment_kg": 1, "note": "Вес одной гантели" }
+      ]
+    }
+  ]
+}
