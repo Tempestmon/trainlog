@@ -6,7 +6,10 @@ name: pages
 on:
   push:
     branches: [main]
-    paths: ["form/*.html", "form/*.js"]
+    paths:
+      - "form/*.html"
+      - "form/*.js"
+      - ".github/workflows/pages.yml"
   workflow_dispatch:
 
 permissions:
