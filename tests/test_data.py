@@ -18,10 +18,15 @@ def write(tmp_path: Path, name: str, text: str) -> Path:
 
 
 def test_real_repo_data_is_valid(program):
-    lifts = load_lifts(ROOT / "data" / "lifts.csv", program)
-    assert lifts[0].date == date(2026, 10, 19)
-    assert {s.exercise for s in lifts} >= {"squat", "leg_press", "lat_pulldown"}
+    # Only checks that the live log parses; its content changes every workout.
+    load_lifts(ROOT / "data" / "lifts.csv", program)
     load_body(ROOT / "data" / "body.csv")
+
+
+def test_fixture_log_is_valid(program):
+    lifts = load_lifts(ROOT / "tests" / "fixtures" / "lifts.csv", program)
+    assert len(lifts) == 14
+    assert lifts[0].date == date(2026, 10, 19)
 
 
 def test_lifts_parse_types(tmp_path, program):

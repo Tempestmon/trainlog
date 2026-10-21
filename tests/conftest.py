@@ -10,6 +10,9 @@ from trainlog.data import BodyEntry
 from trainlog.program import Program, load_program
 
 ROOT = Path(__file__).resolve().parent.parent
+# Frozen copy of the log: tests must not depend on data/lifts.csv, which grows
+# with every logged workout.
+FIXTURES = Path(__file__).resolve().parent / "fixtures"
 
 
 @pytest.fixture
@@ -19,10 +22,10 @@ def program() -> Program:
 
 @pytest.fixture
 def repo(tmp_path: Path) -> Path:
-    """A copy of the repo layout with the real program and an empty body log."""
+    """Repo layout with the real program, the frozen lift log and an empty body log."""
     shutil.copy(ROOT / "program.json", tmp_path / "program.json")
     (tmp_path / "data").mkdir()
-    shutil.copy(ROOT / "data" / "lifts.csv", tmp_path / "data" / "lifts.csv")
+    shutil.copy(FIXTURES / "lifts.csv", tmp_path / "data" / "lifts.csv")
     (tmp_path / "data" / "body.csv").write_text("date,weight_kg,waist_cm,sleep_h,note\n", encoding="utf-8")
     return tmp_path
 
