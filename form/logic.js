@@ -157,7 +157,25 @@
       .join(", ");
   }
 
-  // Returns planned sets [{weight, reps:[lo,hi]}] and a short hint.
+  const ROLE_LABELS = { top: "Топ", backoff: "Доб" };
+
+  function roleLabel(role) {
+    return ROLE_LABELS[role] || null;
+  }
+
+  // Order of work for a top + back-off exercise, shown above its sets.
+  function orderText(exercise) {
+    if (exercise.scheme !== "top_backoff") return null;
+    const bo = exercise.backoff;
+    return (
+      "Порядок: разминка (не записывать) → топ " +
+      exercise.reps[0] + "–" + exercise.reps[1] +
+      " → " + bo.sets + " добив. по " + Math.round(bo.pct * 100) + "%"
+    );
+  }
+
+  // Returns planned sets [{weight, reps:[lo,hi], role}] and a short hint.
+  // role is "top" | "backoff" for top_backoff exercises, null otherwise.
   // Double progression: reps first, then weight.
   function suggest(exercise, last) {
     const [lo, hi] = exercise.reps;
@@ -165,13 +183,12 @@
 
     if (exercise.scheme === "top_backoff") {
       const bo = exercise.backoff;
+      const plan = (topWeight, backoffWeight) =>
+        [{ weight: topWeight, reps: [lo, hi], role: "top" }].concat(
+          Array.from({ length: bo.sets }, () => ({ weight: backoffWeight, reps: bo.reps, role: "backoff" })),
+        );
       if (!last || last.sets.length === 0) {
-        return {
-          sets: [{ weight: null, reps: [lo, hi] }].concat(
-            Array.from({ length: bo.sets }, () => ({ weight: null, reps: bo.reps })),
-          ),
-          hint: "Первый раз: топ-подход с 2–3 в запасе",
-        };
+        return { sets: plan(null, null), hint: "Первый раз: топ-подход с 2–3 в запасе" };
       }
       const top = last.sets.reduce((a, b) => (b.weight > a.weight ? b : a), last.sets[0]);
       const rirMin = exercise.rir_min === undefined ? 1 : exercise.rir_min;
@@ -181,18 +198,13 @@
       const hint = earned
         ? "Прошлый раз " + describe(last) + " → +" + fmt(inc) + " кг"
         : "Прошлый раз " + describe(last) + " → тот же вес, +1 повтор в топе";
-      return {
-        sets: [{ weight: topWeight, reps: [lo, hi] }].concat(
-          Array.from({ length: bo.sets }, () => ({ weight: backoffWeight, reps: bo.reps })),
-        ),
-        hint,
-      };
+      return { sets: plan(topWeight, backoffWeight), hint };
     }
 
     const n = exercise.sets;
     if (!last || last.sets.length === 0) {
       return {
-        sets: Array.from({ length: n }, () => ({ weight: null, reps: [lo, hi] })),
+        sets: Array.from({ length: n }, () => ({ weight: null, reps: [lo, hi], role: null })),
         hint: "Первый раз: вес на " + hi + " повторов с 2–3 в запасе",
       };
     }
@@ -209,7 +221,7 @@
       hint = "Прошлый раз " + describe(last) + " → тот же вес, добей " + hi + " во всех подходах";
     }
     return {
-      sets: Array.from({ length: n }, () => ({ weight: next, reps: [lo, hi] })),
+      sets: Array.from({ length: n }, () => ({ weight: next, reps: [lo, hi], role: null })),
       hint,
     };
   }
@@ -289,6 +301,8 @@
     lastPerformance,
     roundDown,
     suggest,
+    roleLabel,
+    orderText,
     buildLiftRecords,
     buildBodyRecord,
     liftKey,

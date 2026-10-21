@@ -147,3 +147,19 @@ test("buildBodyRecord accepts a comma decimal and validates ranges", () => {
   assert.throws(() => L.buildBodyRecord({ date: "19.10.2026", weight: "61" }), /Дата/);
   assert.throws(() => L.buildBodyRecord({ date: "2026-10-19", weight: "610" }), /Вес/);
 });
+
+test("top_backoff plans mark the top and back-off sets", () => {
+  const squat = ex("legs_a", "squat");
+  for (const plan of [L.suggest(squat, null), L.suggest(squat, last([{ set: 1, weight: 60, reps: 8, rir: 3 }]))]) {
+    assert.deepEqual(plan.sets.map((s) => s.role), ["top", "backoff", "backoff"]);
+  }
+  assert.deepEqual(L.suggest(ex("legs_a", "leg_press"), null).sets.map((s) => s.role), [null, null, null]);
+});
+
+test("roleLabel and orderText", () => {
+  assert.equal(L.roleLabel("top"), "Топ");
+  assert.equal(L.roleLabel("backoff"), "Доб");
+  assert.equal(L.roleLabel(null), null);
+  assert.equal(L.orderText(ex("upper_a", "bench_press")), "Порядок: разминка (не записывать) → топ 5–8 → 2 добив. по 90%");
+  assert.equal(L.orderText(ex("upper_a", "row")), null);
+});

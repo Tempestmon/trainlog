@@ -172,3 +172,24 @@ test("an API error keeps the draft and reports it", async () => {
   const draft = JSON.parse(w.localStorage.getItem("trainlog.draft"));
   assert.equal(draft.entries.squat[0].reps, "6");
 });
+
+test("top and back-off sets are labelled and keep labels after edits", async () => {
+  const api = fakeApi(repoFiles());
+  const w = await boot(api, { settings: SETTINGS });
+  const doc = w.document;
+  doc.getElementById("date").value = "2026-10-22";
+  doc.querySelector('[data-session="legs_a"]').click();
+  const squat = doc.querySelector('[data-exercise="squat"]');
+  const labels = () => [...squat.querySelectorAll(".sets .set-no")].map((e) => e.textContent);
+  assert.deepEqual(labels(), ["Топ", "Доб", "Доб"]);
+  assert.match(squat.querySelector(".order").textContent, /разминка .* → топ 5–8 → 2 добив\. по 90%/);
+
+  squat.querySelector(".add").click();
+  assert.deepEqual(labels(), ["Топ", "Доб", "Доб", "Доб"]);
+  squat.querySelectorAll(".sets .set")[1].querySelector(".icon").click();
+  assert.deepEqual(labels(), ["Топ", "Доб", "Доб"]);
+
+  const press = doc.querySelector('[data-exercise="leg_press"]');
+  assert.deepEqual([...press.querySelectorAll(".sets .set-no")].map((e) => e.textContent), ["1", "2", "3"]);
+  assert.equal(press.querySelector(".order"), null);
+});

@@ -197,8 +197,9 @@
   function setRow(set, idx, planned) {
     const lo = planned ? planned.reps[0] : "";
     const hi = planned ? planned.reps[1] : "";
-    return h("div", { class: "set" }, [
-      h("span", { class: "set-no", text: String(idx + 1) }),
+    const role = planned && planned.role ? planned.role : "";
+    return h("div", { class: "set", "data-role": role || null }, [
+      h("span", { class: "set-no", text: L.roleLabel(role) || String(idx + 1) }),
       h("input", {
         class: "w",
         type: "number",
@@ -243,7 +244,11 @@
   }
 
   function renumber() {
-    $$(".exercise").forEach((card) => $$(".set-no", card).forEach((el, i) => (el.textContent = String(i + 1))));
+    $$(".exercise").forEach((card) =>
+      $$(".sets .set", card).forEach((row, i) => {
+        $(".set-no", row).textContent = L.roleLabel(row.dataset.role) || String(i + 1);
+      }),
+    );
   }
 
   function selectSession(sessionId, draft) {
@@ -267,6 +272,7 @@
             h("span", { class: "target", text: ex.reps[0] + "–" + ex.reps[1] }),
           ]),
           ex.note ? h("p", { class: "note", text: ex.note }) : null,
+          L.orderText(ex) ? h("p", { class: "order", text: L.orderText(ex) }) : null,
           h("p", { class: "hint", text: plan.hint }),
           h("div", { class: "set head" }, [
             h("span", { text: "#" }),
