@@ -46,3 +46,17 @@ date,session,exercise,set,weight_kg,reps,rir
 2026-10-23,legs_b,calf_raise_seated,3,25,20,2
 2026-10-23,legs_b,db_shoulder_press,1,10,12,4
 2026-10-23,legs_b,db_shoulder_press,2,14,10,2
+2026-10-25,legs_a,squat,1,65,8,4
+2026-10-25,legs_a,squat,2,57.5,10,4
+2026-10-25,legs_a,squat,3,57.5,10,4
+2026-10-25,legs_a,leg_press,1,60,15,6
+2026-10-25,legs_a,leg_press,2,60,15,6
+2026-10-25,legs_a,leg_press,3,60,15,6
+2026-10-25,legs_a,leg_extension,1,45,12,2
+2026-10-25,legs_a,leg_extension,2,45,14,2
+2026-10-25,legs_a,leg_curl,1,35,10,2
+2026-10-25,legs_a,leg_curl,2,35,8,2
+2026-10-25,legs_a,leg_curl,3,35,8,1
+2026-10-25,legs_a,calf_raise_standing,1,40,15,2
+2026-10-25,legs_a,calf_raise_standing,2,40,12,3
+2026-10-25,legs_a,calf_raise_standing,3,40,12,4
