@@ -75,3 +75,17 @@ date,session,exercise,set,weight_kg,reps,rir
 2026-11-05,upper_a,lateral_raise,3,10,20,2
 2026-11-05,upper_a,triceps_pushdown,1,35,12,2
 2026-11-05,upper_a,triceps_pushdown,2,35,10,2
+2026-11-08,legs_a,squat,1,70,8,4
+2026-11-08,legs_a,squat,2,62.5,10,2
+2026-11-08,legs_a,squat,3,62.5,10,2
+2026-11-08,legs_a,leg_press,1,80,15,3
+2026-11-08,legs_a,leg_press,2,80,15,2
+2026-11-08,legs_a,leg_press,3,80,15,1
+2026-11-08,legs_a,leg_extension,1,45,15,2
+2026-11-08,legs_a,leg_extension,2,45,15,2
+2026-11-08,legs_a,leg_curl,1,35,10,1
+2026-11-08,legs_a,leg_curl,2,35,10,0
+2026-11-08,legs_a,leg_curl,3,35,6,0
+2026-11-08,legs_a,calf_raise_standing,1,45,12,2
+2026-11-08,legs_a,calf_raise_standing,2,45,12,2
+2026-11-08,legs_a,calf_raise_standing,3,45,12,4
